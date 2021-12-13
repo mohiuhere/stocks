@@ -1,8 +1,8 @@
 <?php
 include "connection.php";
 include "auth.php";
-$id = $_SESSION['id'];
-$str = "SELECT first_name, last_name, role FROM users WHERE id='".$id."';";
+$user_id = $_SESSION['id'];
+$str = "SELECT first_name, last_name, role FROM users WHERE id= $user_id;";
 $result = mysqli_query($conn, $str);
 if(mysqli_num_rows($result)==1){
     $r = mysqli_fetch_assoc($result);
@@ -91,7 +91,7 @@ if(mysqli_num_rows($result)==1){
                                     <div class="card-body">Account Balance</div>
                                     <div class="card-footer">
 <?php 
-$str = "SELECT balance FROM user_account WHERE user_id=$id;";
+$str = "SELECT balance FROM user_account WHERE user_id=$user_id;";
 $result = mysqli_query($conn, $str);
 $r = mysqli_fetch_assoc($result)
 ?>
@@ -119,15 +119,15 @@ $str = "SELECT * FROM company;";
 $result = mysqli_query($conn, $str);
 if(mysqli_num_rows($result)>0){
 ?>
-                               <div class="dropdown mt-4 ml-3">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Company
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+                               <div class="col-xl-3 btn btn-success dropdown">
+                                <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                Company: Apply For Stock
+                                </button>
+                                <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
 <?php 
 foreach($result as $r){ 
 ?>
-        <button class="dropdown-item" type="button" value="<?php $r['id']?>" name="apply"><?php echo $r['name']?></button>
+                                <button class="dropdown-item" type="submit"name="apply"><?php echo $r['name']; $company_id = $r['id']?></button>
 <?php 
 }
 ?>
@@ -135,6 +135,17 @@ foreach($result as $r){
     </div>
 <?php
 }
+?>
+<?php
+
+if(isset($_POST['apply'])){
+    $company_id = $_POST['apply'];
+    print_r($company_id);
+    $cost = 200;
+    $str = "INSERT INTO apply(user_id, company_id, cost) VALUES($user_id, $company_id, $cost);";
+    mysqli_query($conn, $str);
+}
+
 ?>
 
                             <!--col-->
