@@ -12,7 +12,7 @@ if(mysqli_num_rows($result)==1){
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="utf-8" />
+    <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
@@ -20,6 +20,7 @@ if(mysqli_num_rows($result)==1){
         <title>index</title>
         <link rel="icon" href="img/favicon_io/favicon.ico">
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
     </head>
@@ -60,7 +61,7 @@ if(mysqli_num_rows($result)==1){
                             </a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="#">Add User</a>
+                                            <a class="nav-link" href="apply-for-stock.php">Apply For Stock</a>
                                             <a class="nav-link" href="404.html">404 Page</a>
                                             <a class="nav-link" href="500.html">500 Page</a>
                                         </nav>
@@ -113,6 +114,29 @@ $r = mysqli_fetch_assoc($result)
                                         </div>
                                     </div>
                                 </div>
+<?php 
+$str = "SELECT * FROM company;";
+$result = mysqli_query($conn, $str);
+if(mysqli_num_rows($result)>0){
+?>
+                               <div class="dropdown mt-4 ml-3">
+  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+    Company
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+<?php 
+foreach($result as $r){ 
+?>
+        <button class="dropdown-item" type="button" value="<?php $r['id']?>" name="apply"><?php echo $r['name']?></button>
+<?php 
+}
+?>
+    </div>
+    </div>
+<?php
+}
+?>
+
                             <!--col-->
                             </div>
                      </div>
@@ -122,12 +146,14 @@ $r = mysqli_fetch_assoc($result)
                 </main>
             </div>
         </div>
+        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
         <script src="js/scripts.js"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.min.js" crossorigin="anonymous"></script>
         <script src="assets/demo/chart-area-demo.js"></script>
         <script src="assets/demo/chart-bar-demo.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/simple-datatables@latest" crossorigin="anonymous"></script>
-        <script src="js/datatables-simple-demo.js"></script>
     </body>
 </html>

@@ -68,7 +68,7 @@ foreach($result as $r){
             
             </tr>
         </tbody>
-        <?php
+<?php
 }
 }
 ?>
