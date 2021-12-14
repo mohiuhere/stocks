@@ -1,27 +1,32 @@
 <?php
 include "connection.php";
 include "auth.php";
-$id = $_SESSION['id'];
-$str = "SELECT * FROM company;";
-$result = mysqli_query($conn, $str);
-if(mysqli_num_rows($result)>0){
+$user_id = $_SESSION['id'];
+$company_id = $_REQUEST['id'];
+$str = "SELECT name, price FROM company WHERE id=$company_id;";
+$result = mysqli_query($conn,$str);
+if(mysqli_num_rows($result)==1){
+    $r = mysqli_fetch_assoc($result);
+    $name = $r['name'];
+    $cost = 200;
+    
+}
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
     <head>
+    <title>Application Page</title>
     <meta charset="utf-8" />
-        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
-        <meta name="description" content="" />
-        <meta name="author" content="" />
-        <title>index</title>
-        <link rel="icon" href="img/favicon_io/favicon.ico">
-        <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <link href="css/styles.css" rel="stylesheet" />
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" href="img/favicon_io/favicon.ico">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
     </head>
+<body>
+
     <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark">
             <!-- Navbar Brand-->
             <a class="navbar-brand ps-3 text-primary" href="index.php">Dashboard</a>
@@ -36,34 +41,45 @@ if(mysqli_num_rows($result)>0){
                 </li>
             </ul>
     </nav>
-    <div class="dropdown mt-4 ml-3">
-  <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-    Company
-    </button>
-    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
-<?php 
-foreach($result as $r){ 
-?>
-        <button class="dropdown-item" type="button" value="<?php $r['id']?>" name="apply"><?php echo $r['name']?></button>
-<?php 
-}
-?>
+
+    <div class="position-relative position-absolute bottom-50 end-50">
+        <form action="" method="POST">
+            <div class="input-group mb-2">
+                <label for="name"><span class="input-group-text" id="basic-addon1">Name</span></label>
+                <input type="text" name="name" value="<?php echo $name?>" class="form-control" id="name" readonly>
+            </div>
+
+            <div class="input-group mb-2">
+                <label for="price"><span class="input-group-text" id="basic-addon1">Cost</span></label>
+                <input type="number" step="0.001" name="price" value="<?php echo $cost?>" class="form-control" id="price" readonly>
+            </div>
+            
+            <div class="input-group mb-2">
+                <label for="yes"><span class="input-group-text" id="basic-addon1">If You want to Invest this company type "YES"</span></label>
+                <input type="text" name="yes" class="form-control" id="yes">
+            </div>
+            <div >
+                <button type="submit" name="apply" class="btn btn-outline-dark">Apply</button>
+            </div>
+            
+        </form>
     </div>
-    </div>
-<?php
-}
-?>
+
 
 <?php
 
-    if(isset($_POST['apply'])){
-        $company_id = $_POST['apply'];
-        echo $company_id;
+if(isset($_POST['apply'])){
+    if($_POST['yes'] == "YES"){
+        $str = "SELECT * FROM apply WHERE user_id = $user_id AND company_id = $company_id;";
+        if(mysqli_num_rows(mysqli_query($conn, $str))==0){
+
+        $str = "INSERT INTO apply(user_id, company_id, cost) VALUES($user_id, $company_id, $cost);";
+        mysqli_query($conn, $str);
+        }
     }
+}
 
 ?>
-
-
 
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>

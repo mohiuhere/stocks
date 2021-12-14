@@ -125,10 +125,10 @@ if(mysqli_num_rows($result)>0){
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
 <?php 
-foreach($result as $r){ 
+foreach($result as $r){
 ?>
-                                <button class="dropdown-item" type="submit"name="apply"><?php echo $r['name']; $company_id = $r['id']?></button>
-<?php 
+                                <a class="dropdown-item" href="apply-for-stock.php?id=<?php echo$r['id']?>"><?php echo $r['name']?></a>
+<?php
 }
 ?>
     </div>
@@ -136,23 +136,9 @@ foreach($result as $r){
 <?php
 }
 ?>
-<?php
-
-if(isset($_POST['apply'])){
-    $company_id = $_POST['apply'];
-    print_r($company_id);
-    $cost = 200;
-    $str = "INSERT INTO apply(user_id, company_id, cost) VALUES($user_id, $company_id, $cost);";
-    mysqli_query($conn, $str);
-}
-
-?>
-
                             <!--col-->
                             </div>
                      </div>
-                        
-                        
                     </div>
                 </main>
             </div>
