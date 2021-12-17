@@ -46,7 +46,7 @@ if(mysqli_num_rows($result)>0){
             <tr>
             <th scope="col">Name</th>
             <th scope="col">Number Of Stock</th>
-            <th scope="col">Sell</th>
+            <th scope="col">Listing</th>
             </tr>
         </thead>
         <tbody>
@@ -57,7 +57,7 @@ foreach($result as $r){
             <tr>
             <td><?php echo $r['name']; ?></td>
             <td><?php echo $r['quantity']; ?></td>
-            <td><a href="sell-stock.php?id=<?php echo $r['company_id']?> ">Sell</a></td>
+            <td><a href="sell-stock.php?id=<?php echo $r['company_id']?> ">Post for Sell</a></td>
             </tr>
         </tbody>
         <?php

@@ -61,7 +61,7 @@ if(mysqli_num_rows($result)==1){
                             </a>
                             <div class="collapse" id="collapsePages" aria-labelledby="headingTwo" data-bs-parent="#sidenavAccordion">
                                         <nav class="sb-sidenav-menu-nested nav">
-                                            <a class="nav-link" href="apply-for-stock.php">Apply For Stock</a>
+                                            <a class="nav-link" href="#">Apply For Stock</a>
                                             <a class="nav-link" href="404.html">404 Page</a>
                                             <a class="nav-link" href="500.html">500 Page</a>
                                         </nav>
@@ -85,8 +85,8 @@ if(mysqli_num_rows($result)==1){
                             </li>
                         </ol>
                         <!--row-->
-                        <div class="row">
-                            <div class="col-xl-3 col-md-6">
+                        <div class="row ml-5">
+                            <div class="col-xl-3 col-md-6 ml-auto">
                                 <div class="card bg-success text-center text-capitalize text-white">
                                     <div class="card-body">Account Balance</div>
                                     <div class="card-footer">
@@ -101,7 +101,7 @@ $r = mysqli_fetch_assoc($result)
                             </div>
                             <!--row-->
                             <!--col-->
-                                <div class="col-xl-3 col-md-6">
+                                <div class="col-xl-3 col-md-6 ml-auto">
                                     <div class="card bg-danger text-center text-capitalize text-white">
                                         <div class="card-body">Number of Company</div>
                                         <div class="card-footer">
@@ -119,7 +119,7 @@ $str = "SELECT * FROM company;";
 $result = mysqli_query($conn, $str);
 if(mysqli_num_rows($result)>0){
 ?>
-                               <div class="col-xl-3 btn btn-success dropdown">
+                               <div class="col-xl-3 btn btn-success dropdown ml-auto">
                                 <button class="btn btn-success dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                 Company: Apply For Stock
                                 </button>
@@ -131,17 +131,71 @@ foreach($result as $r){
 <?php
 }
 ?>
-    </div>
-    </div>
+                                </div>
+                                </div>
 <?php
 }
 ?>
                             <!--col-->
                             </div>
+                            <div class="row mt-5 ml-5">
+                            <div class="col-xs-3 col-md-6">
+                                <div class="card bg-success text-center text-capitalize text-white">
+                                    <div class="card-body">Account Balance</div>
+                                    <div class="card-footer">
+<?php 
+$str = "SELECT balance FROM user_account WHERE user_id=$user_id;";
+$result = mysqli_query($conn, $str);
+$r = mysqli_fetch_assoc($result)
+?>
+                                        <p class="h5 text-center text-white"><i class="fas fa-dollar-sign"></i><?php echo $r['balance']?></p>
+                                    </div>
+                                </div>
+                            </div>
+                            </div>
                      </div>
                     </div>
+<?php 
+$str = "SELECT * FROM users;";
+$result = mysqli_query($conn, $str);
+if(mysqli_num_rows($result)>0){
+?>
                 </main>
             </div>
+            <div class="col-xs-3">
+            <table class="table table-hover table-dark">
+        <thead>
+            <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">User</th>
+            <th scope="col">Email</th>
+            <th scope="col">Phone</th>
+            <th scope="col">Role</th>
+            <th scope="col">Delete</th>
+            </tr>
+        </thead>
+        <tbody>
+<?php 
+foreach($result as $r){ 
+?>
+
+            <tr>
+            <th scope="row"><?php echo $r['id']; ?></th>
+            <td><?php echo $r['first_name']; echo" "; echo $r['last_name']; ?></td>
+            <td><?php echo $r['user_name']; ?></td>
+            <td><?php echo $r['email']; ?></td>
+            <td><?php echo $r['phone_number']; ?></td>
+            <td><?php echo $r['role']; ?></td>
+            <td><a href="delete-user.php?id=<?php echo $r['id']?> ">Delete</a></td>
+            </tr>
+        </tbody>
+        <?php
+}
+}
+?>
+        </table>
+        </div>
         </div>
         <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
