@@ -76,6 +76,7 @@ if(isset($_POST['apply'])){
         $str = "INSERT INTO apply(user_id, company_id, cost) VALUES($user_id, $company_id, $cost);";
         mysqli_query($conn, $str);
         }
+        header('location: index.php');
     }
 }
 

@@ -68,11 +68,11 @@ if(mysqli_num_rows($result)==1){
 
 <?php 
     if(isset($_POST['automated'])){
-        $str = "SELECT user_id FROM apply WHERE company_id = $company_id;";
+        $str = "SELECT id FROM users WHERE role='user';";
         $result = mysqli_query($conn, $str);
 
 
-        $str = "SELECT COUNT(id) as total FROM apply WHERE company_id = $company_id;";
+        $str = "SELECT COUNT(id) as total FROM users WHERE role='user';";
         $total_user = mysqli_query($conn, $str);
         $t = mysqli_fetch_assoc($total_user);
         $total_user = $t['total'];
@@ -84,7 +84,7 @@ if(mysqli_num_rows($result)==1){
 
                 // add each row returned into an array
                 array(
-                    $array_for_id[] = $row['user_id']
+                    $array_for_id[] = $row['id']
                 );
                 array(
                     $array_for_stock[] = 0
