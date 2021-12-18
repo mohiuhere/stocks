@@ -2,7 +2,7 @@
 include "connection.php";
 include "auth.php";
 $user_id = $_SESSION['id'];
-$str = "SELECT users.first_name, users.last_name, company.name, item.company_id,item.quantity, item.is_active, item.unit_price
+$str = "SELECT users.first_name, users.last_name, company.name, item.id,item.quantity, item.is_active, item.unit_price
 FROM item
 INNER JOIN users ON users.id = item.seller_id
 INNER JOIN company ON company.id = item.company_id;";
@@ -18,7 +18,8 @@ if(mysqli_num_rows($result)>0){
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
         <meta name="description" content="" />
         <meta name="author" content="" />
-        <title>Tables - SB Admin</title>
+        <title>index</title>
+        <link rel="icon" href="img/favicon_io/favicon.ico">
         <link href="https://cdn.jsdelivr.net/npm/simple-datatables@latest/dist/style.css" rel="stylesheet" />
         <link href="css/styles.css" rel="stylesheet" />
         <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/js/all.min.js" crossorigin="anonymous"></script>
@@ -111,7 +112,7 @@ if(mysqli_num_rows($result)>0){
                                             <td><?php echo $r['quantity']?></td>
                                             <td><?php echo $r['unit_price']?></td>
                                             <td>
-                                            <a href="buy-stock.php?id=<?php echo $r['company_id']?> ">Buy</a>
+                                            <a href="buy-stock.php?id=<?php echo $r['id']?> ">Buy</a>
                                             </td>
                                         </tr>
                                     </tbody>
