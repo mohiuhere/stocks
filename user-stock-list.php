@@ -41,6 +41,13 @@ if(mysqli_num_rows($result)>0){
         </nav>
     
 
+        <div class="card mb-4">
+            <div class="card-header">
+                <i class="fas fa-table me-1"></i>
+                    My Stocks
+            </div>
+        <div class="card-body">
+
         <table class="table table-hover table-dark">
         <thead>
             <tr>
@@ -67,5 +74,7 @@ foreach($result as $r){
 }
 ?>
         </table>
-    </body>
+    </div>
+</div>
+</body>
 </html>

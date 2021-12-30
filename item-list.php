@@ -70,19 +70,15 @@ if(mysqli_num_rows($result)>0){
                 <main>
                     <div class="container-fluid px-4">
                         <h1 class="mt-4">Item Feed</h1>
-                        <ol class="breadcrumb mb-4">
-                            <li class="breadcrumb-item"><a href="index.html">Dashboard</a></li>
-                            <li class="breadcrumb-item active">Item</li>
-                        </ol>
                         <div class="card mb-4">
                         </div>
                         <div class="card mb-4">
                             <div class="card-header">
                                 <i class="fas fa-table me-1"></i>
-                                DataTable Example
+                                Market Place
                             </div>
                             <div class="card-body">
-                                <table id="datatablesSimple">
+                                <table class="table table-hover">
                                     <thead>
                                         <tr>
                                             <th>Name of Company</th>
@@ -93,16 +89,7 @@ if(mysqli_num_rows($result)>0){
                                             <th>Buy</th>
                                         </tr>
                                     </thead>
-                                    <tfoot>
-                                        <tr>
-                                            <th>Name of Company</th>
-                                            <th>Seller Name</th>
-                                            <th>Active</th>
-                                            <th>Quantity</th>
-                                            <th>Unit Price</th>
-                                            <th>Buy</th>
-                                        </tr>
-                                    </tfoot>
+                                    
                                     <tbody>
                                     <?php foreach($result as $r){?>
                                         <tr>

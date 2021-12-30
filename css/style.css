@@ -1,0 +1,12 @@
+#flex-container {
+    display: inline-block;
+    border: 2px;
+    display: flex;
+    flex-direction: row;
+}
+  
+#flex-container .flex-item {
+    display: inline-block;
+    align-content: space-between; 
+    align-content: center;
+}
